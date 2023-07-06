@@ -1,5 +1,5 @@
 import { View, Text, Image, StyleSheet, Pressable, Platform } from 'react-native';
-import MealDetails from './MealDetails';
+import MealDetails from '../MealDetails';
 
 /* import { useNavigation } from '@react-navigation/native';
 import useRoute from '@react-navigation/native'; */
