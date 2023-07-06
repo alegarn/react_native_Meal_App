@@ -1,8 +1,10 @@
 import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
 import MealDetails from '../components/MealDetails';
 import List from '../components/List';
-import { useLayoutEffect } from 'react';
+import { useLayoutEffect, useContext } from 'react';
 import IconButton from '../components/IconButton';
+import {FavoritesContext} from '../store/context/favorites-context';
+import { log } from 'react-native-reanimated';
 
 /* inheriting route as a screen in navigation */
 export default function Meal({route, navigation}) {
@@ -13,20 +15,36 @@ export default function Meal({route, navigation}) {
     const meal = MEALS.find(meal => meal.id === mealId);
   */
 
+  const favoriteMealContext = useContext(FavoritesContext);
+
   const meal = route.params.meal;
 
-  function onPressHeader() {
-    navigation.goBack();
-  }
+  const mealIsFavorite = favoriteMealContext?.ids?.includes(meal.id);
+  console.log(meal.id);
+  console.log(mealIsFavorite);
+  console.log(favoriteMealContext.ids);
+
+  function changeFavoriteStatusHandler() {
+    console.log(mealIsFavorite);
+    if (mealIsFavorite) {
+      favoriteMealContext.removeFavorite(meal.id);
+    } else {
+      favoriteMealContext.addFavorite(meal.id);
+    };
+  };
 
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => {
-        return <IconButton icon="star" color="white" onPress={onPressHeader} />
+        return(
+          <IconButton
+            icon={ mealIsFavorite ? "star" : "star-outline"}
+            color="white"
+            onPress={changeFavoriteStatusHandler} />)
       }
     });
-  }, [navigation]);
+  }, [navigation, mealIsFavorite]);
 
 
   return (

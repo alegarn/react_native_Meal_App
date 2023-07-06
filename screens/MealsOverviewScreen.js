@@ -24,9 +24,6 @@ export default function MealsOverviewScreen({ route, navigation }) {
     return <MealOverview  {...mealOverviewProps} />;
   };
 
-  console.log(route);
-  console.log(route.params);
-
   const { categoryId } = route?.params;
   const displayedMeals = MEALS?.filter(meal => meal?.categoryIds?.indexOf(categoryId) >= 0);
 
