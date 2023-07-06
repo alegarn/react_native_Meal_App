@@ -12,6 +12,7 @@ import FavoritesScreen from './screens/FavoritesScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { Ionicons } from '@expo/vector-icons';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -19,9 +20,45 @@ const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 function DrawerNavigator() {
   return (
-    <Drawer.Navigator>
-      <Drawer.Screen name="AllCategories" component={CategoryScreen} />
-      <Drawer.Screen name='FavoriteScreen' component={FavoritesScreen} />
+    <Drawer.Navigator
+    screenOptions={{
+      headerStyle: {
+        backgroundColor: '#f4511e',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+      sceneContainerStyle: {
+        backgroundColor: '#f3a48c',
+      },
+      drawerContentStyle: {
+        backgroundColor: '#f3a48c',
+      },
+      drawerActiveTintColor: '#f4511e',
+      drawerInactiveTintColor: '#fff',
+      drawerActiveBackgroundColor: '#f3a48c',
+    }}
+    >
+      <Drawer.Screen
+        name="AllCategories"
+        component={CategoryScreen}
+        options={{
+          title: 'All Categories',
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="list" size={size} color={color} />
+          ),
+        }}
+
+      />
+      <Drawer.Screen
+        name='FavoriteScreen'
+        component={FavoritesScreen}
+        options={{
+            drawerIcon: ({ color, size }) => (
+              <Ionicons name="star" size={size} color={color} />
+            ),
+          }} />
     </Drawer.Navigator>
   );
 };
@@ -68,7 +105,7 @@ export default function App() {
             component={DrawerNavigator}
             options={
               {
-                title: 'Meal Categories',
+                headerShown: false,
               }
             } />
           <Stack.Screen name="MealsOverview" component={MealsOverviewScreen} />
