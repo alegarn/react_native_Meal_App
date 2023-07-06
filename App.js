@@ -14,7 +14,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Ionicons } from '@expo/vector-icons';
 
-import FavoritesContextProvider from './store/context/favorites-context';
+/* import FavoritesContextProvider from './store/context/favorites-context';*/
+import { store } from './store/redux/store';
+import { Provider } from 'react-redux'
+
 
 SplashScreen.preventAutoHideAsync();
 
@@ -88,7 +91,8 @@ export default function App() {
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
       <StatusBar style="auto" />
-      <FavoritesContextProvider>
+      {/*<FavoritesContextProvider> */}
+      <Provider store={store}>
         <NavigationContainer>
           <Stack.Navigator
             initialRouteName='Drawer'
@@ -118,7 +122,8 @@ export default function App() {
               />
           </Stack.Navigator>
         </NavigationContainer>
-      </FavoritesContextProvider>
+      </Provider>
+      {/*</FavoritesContextProvider>*/}
     </View>
   );
 }
