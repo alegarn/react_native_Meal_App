@@ -4,7 +4,6 @@ import List from '../components/List';
 import { useLayoutEffect, useContext } from 'react';
 import IconButton from '../components/IconButton';
 import {FavoritesContext} from '../store/context/favorites-context';
-import { log } from 'react-native-reanimated';
 
 /* inheriting route as a screen in navigation */
 export default function Meal({route, navigation}) {
@@ -20,12 +19,8 @@ export default function Meal({route, navigation}) {
   const meal = route.params.meal;
 
   const mealIsFavorite = favoriteMealContext?.ids?.includes(meal.id);
-  console.log(meal.id);
-  console.log(mealIsFavorite);
-  console.log(favoriteMealContext.ids);
 
   function changeFavoriteStatusHandler() {
-    console.log(mealIsFavorite);
     if (mealIsFavorite) {
       favoriteMealContext.removeFavorite(meal.id);
     } else {
